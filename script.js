@@ -279,10 +279,10 @@ function binarySearch(arr, val) {
   if (arr.length === 1) {
     return arr[0] === val ? 0 : -1;
   }
-  let start = 0; // 0
-  let end = arr.length - 1; // 1
+  let start = 0;
+  let end = arr.length - 1;
   while (start <= end) {
-    const mid = Math.floor((start + end) / 2); // 0
+    const mid = Math.floor((start + end) / 2);
     if (arr[mid] === val) {
       return mid;
     } else if (arr[mid] < val) {
@@ -294,9 +294,144 @@ function binarySearch(arr, val) {
   return -1;
 }
 
-const a = [];
-for (let i = 0; i < 30000000; i++) {
-  a.push(i);
+function naiveStringSearch(str, val) {
+  if (str.length === 0 || val.length > str.length) {
+    return 0;
+  }
+  if (str === val) {
+    return 1;
+  }
+  let i = 0;
+  let count = 0;
+
+  while (i < str.length) {
+    let j = 0;
+    if (str[i] === val[0]) {
+      while(j < val.length) {
+        if (val[j] === str[i + j]) {
+          if (j === val.length - 1) {
+            count++;
+          }
+          j++;
+        } else {
+          break;
+        }
+      }
+    }
+    i++;
+  }
+  return count;
+}
+
+// sorting
+function swap(a, i1, i2) {
+  const temp = a[i1];
+  a[i1] = a[i2];
+  a[i2] = temp;
+}
+function bubbleSort(arr) {
+  if (arr.length < 2) {
+    return arr;
+  }
+
+  let alreadySorted = false;
+
+  for (let i = arr.length - 1; i > 0; i--) {
+    alreadySorted = true;
+    for (let j = 0; j < i; j++) {
+      if (arr[j] > arr[j + 1]) {
+        alreadySorted = false;
+        swap(arr, j, j + 1);
+      }
+    }
+    if (alreadySorted) {
+      break;
+    }
+  }
+  return arr;
+}
+
+function selectionSort(arr) {
+  if (arr.length < 2) {
+    return arr;
+  }
+
+  for (let i = 0; i < arr.length; i++) {
+    let idx = i;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[idx] > arr[j]) {
+        idx = j;
+      }
+    }
+    if (idx !== i) {
+      swap(arr, idx, i);
+    }
+  }
+  return arr;
+}
+
+function insertionSort(arr) {
+  if (arr.length < 2) {
+    return arr;
+  }
+
+  for (let i = 1; i < arr.length; i++) {
+    const currentVal = arr[i];
+    for (var j = i - 1; j >= 0 && arr[j] > currentVal; j--) {
+      arr[j + 1] = arr[j];
+    }
+    arr[j + 1] = currentVal;
+  }
+  return arr;
+}
+
+function mergeSort(arr) {
+  if (arr.length < 2) {
+    return arr;
+  }
+
+  function merge(a1, a2) {
+    const res = [];
+    let i = 0;
+    let j = 0;
+    while (true) {
+      // both arrays were fully merged - exit
+      if (i === a1.length && j === a2.length) {
+        break;
+      }
+      // array1 was fully merged but one element in array2 remains
+      // push the remaining element into the result array and exit
+      if (i === a1.length && j !== a2.length) {
+        res.push(a2[j]);
+        j++;
+        continue;
+      }
+      // array2 was fully merged but one element in array1 remains
+      // push the remaining element into the result array and exit
+      if (i !== a1.length && j === a2.length) {
+        res.push(a1[i]);
+        i++;
+        continue;
+      }
+      if (a1[i] < a2[j]) {
+        // if the currently looked at item in array1 is smaller
+        // than the currently looked at item in array2
+        // push it into the result array
+        res.push(a1[i]);
+        // move the cursor to the next item in array1
+        i++;
+      } else {
+        // else push the item from array2 it into the result array
+        res.push(a2[j]);
+        // move the cursor to the next item in array2
+        j++;
+      }
+    }
+    return res;
+  }
+
+  const mid = Math.floor(arr.length / 2);
+  return merge(mergeSort(arr.slice(0, mid)), mergeSort(arr.slice(mid)));
 }
 
 module.exports = {
@@ -317,5 +452,10 @@ module.exports = {
   recursiveRange,
   fib,
   reverse,
-  binarySearch
+  binarySearch,
+  naiveStringSearch,
+  bubbleSort,
+  selectionSort,
+  insertionSort,
+  mergeSort
 };

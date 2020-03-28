@@ -16,7 +16,12 @@ const {
   recursiveRange,
   fib,
   reverse,
-  binarySearch
+  binarySearch,
+  naiveStringSearch,
+  bubbleSort,
+  selectionSort,
+  insertionSort,
+  mergeSort
 } = require("./script");
 
 describe("frequency counter pattern", () => {
@@ -174,5 +179,58 @@ describe("searching", () => {
     expect(binarySearch(arr, 12)).toBe(-1);
     expect(binarySearch(arr, 0)).toBe(-1);
     expect(binarySearch(arr, 3000)).toBe(-1);
-  })
+  });
+
+  it("naiveStringSearch", () => {
+    const str = "wowomgzomg";
+    expect(naiveStringSearch(str, "o")).toBe(3);
+    expect(naiveStringSearch(str, "wo")).toBe(2);
+    expect(naiveStringSearch(str, "omg")).toBe(2);
+    expect(naiveStringSearch(str, "zomg")).toBe(1);
+    expect(naiveStringSearch(str, "asd")).toBe(0);
+  });
+});
+
+describe("sorting", () => {
+  it("bubbleSort", () => {
+    expect(bubbleSort([])).toEqual([]);
+    expect(bubbleSort([1])).toEqual([1]);
+    expect(bubbleSort([1,2])).toEqual([1,2]);
+    expect(bubbleSort([2,1])).toEqual([1,2]);
+    expect(bubbleSort([5,3,4,1,2])).toEqual([1,2,3,4,5]);
+    expect(bubbleSort([8,1,2,3,4,5])).toEqual([1,2,3,4,5,8]);
+    expect(bubbleSort([5,3,4,1,2,6,9,8,7])).toEqual([1,2,3,4,5,6,7,8,9]);
+  });
+
+  it("selectionSort", () => {
+    expect(selectionSort([])).toEqual([]);
+    expect(selectionSort([1])).toEqual([1]);
+    expect(selectionSort([1,2])).toEqual([1,2]);
+    expect(selectionSort([2,1])).toEqual([1,2]);
+    expect(selectionSort([2,3,1])).toEqual([1,2,3]);
+    expect(selectionSort([5,3,4,1,2])).toEqual([1,2,3,4,5]);
+    expect(selectionSort([8,1,2,3,4,5])).toEqual([1,2,3,4,5,8]);
+    expect(selectionSort([5,3,4,1,2,6,9,8,7])).toEqual([1,2,3,4,5,6,7,8,9]);
+  });
+
+  it("insertionSort", () => {
+    expect(insertionSort([])).toEqual([]);
+    expect(insertionSort([1])).toEqual([1]);
+    expect(insertionSort([1,2])).toEqual([1,2]);
+    expect(insertionSort([2,1])).toEqual([1,2]);
+    expect(insertionSort([2,3,1])).toEqual([1,2,3]);
+    expect(insertionSort([5,3,4,1,2])).toEqual([1,2,3,4,5]);
+    expect(insertionSort([8,1,2,3,4,5])).toEqual([1,2,3,4,5,8]);
+    expect(insertionSort([5,3,4,1,2,6,9,8,7])).toEqual([1,2,3,4,5,6,7,8,9]);
+  });
+
+  it("mergeSort", () => {
+    expect(mergeSort([])).toEqual([]);
+    expect(mergeSort([1])).toEqual([1]);
+    expect(mergeSort([1,2])).toEqual([1,2]);
+    expect(mergeSort([2,1])).toEqual([1,2]);
+    expect(mergeSort([2,3,1])).toEqual([1,2,3]);
+    expect(mergeSort([5,3,4,1,2,6,9,8,7])).toEqual([1,2,3,4,5,6,7,8,9]);
+    expect(mergeSort([8,1,2,3,4,5])).toEqual([1,2,3,4,5,8]);
+  });
 });
