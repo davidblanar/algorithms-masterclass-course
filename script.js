@@ -400,14 +400,16 @@ function mergeSort(arr) {
         break;
       }
       // array1 was fully merged but one element in array2 remains
-      // push the remaining element into the result array and exit
+      // push the remaining element into the result array
+      // and advance to the next iteration of the loop
       if (i === a1.length && j !== a2.length) {
         res.push(a2[j]);
         j++;
         continue;
       }
       // array2 was fully merged but one element in array1 remains
-      // push the remaining element into the result array and exit
+      // push the remaining element into the result array
+      // and advance to the next iteration of the loop
       if (i !== a1.length && j === a2.length) {
         res.push(a1[i]);
         i++;
