@@ -153,11 +153,74 @@ function meanMedianMode(arr) {
   };
 }
 
+function twoSum(arr, sum) {
+  const res = [];
+  const map = {};
+  for (let i = 0; i < arr.length; i++) {
+    const item = arr[i];
+    if (!map[item]) {
+      map[item] = true;
+    }
+    if (map[sum - item]) {
+      res.push([sum - item, item]);
+    }
+  }
+  return res;
+}
+
+function sieveOfEratosthenes(n) {
+  const primes = [];
+  for (let i = 0; i <= n; i++) {
+    primes.push(true);
+  }
+
+  primes[0] = false;
+  primes[1] = false;
+  for (let i = 2; i < Math.sqrt(n); i++) {
+    for (let j = 2; j * i <= n; j++) {
+      primes[j * i] = false;
+    }
+  }
+
+  const res = [];
+  for (let i = 0; i < primes.length; i++) {
+    if (primes[i]) {
+      res.push(i);
+    }
+  }
+  return res;
+}
+
+function maxStockProfit(prices) {
+  if (prices.length < 2) {
+    return 0;
+  }
+  let lowest = Infinity;
+  let highest = -Infinity;
+  let res = 0;
+
+  for (let i = 0; i < prices.length; i++) {
+    const item = prices[i];
+    if (item < lowest) {
+      lowest = item;
+      highest = item;
+    }
+    if (item > highest) {
+      highest = item;
+    }
+    res = highest - lowest;
+  }
+  return res;
+}
+
 module.exports = {
   harmlessRansomNote,
   isPalindrome,
   caesarCipher,
   reverseWords,
   reverseArrayInPlace,
-  meanMedianMode
+  meanMedianMode,
+  twoSum,
+  sieveOfEratosthenes,
+  maxStockProfit
 };

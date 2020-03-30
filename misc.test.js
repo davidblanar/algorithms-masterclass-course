@@ -4,7 +4,10 @@ const {
   caesarCipher,
   reverseWords,
   reverseArrayInPlace,
-  meanMedianMode
+  meanMedianMode,
+  twoSum,
+  sieveOfEratosthenes,
+  maxStockProfit
 } = require("./misc");
 
 describe("misc", () => {
@@ -56,5 +59,31 @@ describe("misc", () => {
       .toEqual({ mean: 3.25, median: 3.5, mode: [1,4] });
     expect(meanMedianMode([9,10,23,10,23,9]))
       .toEqual({ mean: 14, median: 10, mode: [] });
+  });
+
+  it("twoSum", () => {
+    const expected1 = [[6,1], [3,4], [3,4]];
+    const res1 = twoSum([1,6,4,5,3,3], 7);
+    expect(res1.length).toBe(3);
+    res1.forEach((item, i) => {
+      expect(item.sort()).toEqual(expected1[i].sort());
+    });
+
+    const expected2 = [[17,11], [-12,40]];
+    const res2 = twoSum([40,11,19,17,-12], 28);
+    expect(res2.length).toBe(2);
+    res2.forEach((item, i) => {
+      expect(item.sort()).toEqual(expected2[i].sort());
+    });
+  });
+
+  it("sieveOfEratosthenes", () => {
+    expect(sieveOfEratosthenes(10)).toEqual([2,3,5,7]);
+    expect(sieveOfEratosthenes(20)).toEqual([2,3,5,7,11,13,17,19]);
+  });
+
+  it("maxStockProfit", () => {
+    expect(maxStockProfit([32,46,26,38,40,48,42])).toBe(22);
+    expect(maxStockProfit([10,18,4,5,9,6,16,12])).toBe(12);
   })
 });
